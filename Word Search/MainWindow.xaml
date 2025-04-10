@@ -1,0 +1,45 @@
+﻿<Window x:Class="WordSearchEngine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordSearchEngine;assembly=WordSearchEngine"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="400"
+        Background="#2E2E2E"
+        WindowStartupLocation = "CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True">
+    <Grid>
+        <StackPanel  VerticalAlignment="Center">
+            <TextBlock Text="ENTER A TOPIC:" FontSize="20" Foreground="White" Margin="10" Padding="10" HorizontalAlignment="Center"/>
+            <TextBox x:Name="TopicInput"
+                     Width="250" FontSize="16"
+                     Margin="0,0,0,10"/>
+
+            <Button Content="Generate Word List"
+                    Width="250"
+                    FontSize="16"
+                    Click="GenerateWords_Click"
+                    Margin="0,0,0,10"/>
+            <Button Content="Make it a Puzzle"
+                    Width="250"
+                    FontSize="16"
+                    Click="OnMakePuzzle_Click"
+                    Margin="0,0,0,10"/>
+
+            <TextBlock Text="GENERATED WORDS:" FontSize="18" Margin="10" Padding="30"  HorizontalAlignment="Center" Foreground="White"/>
+
+            <ListBox x:Name="WordListDisplay"
+                     FontSize="16"
+                     Height="300"
+                     Width="300"
+                     Foreground="White"
+                     Background="#1E1E1E"
+                     BorderBrush="White"
+                     Margin="0,10,0,0"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

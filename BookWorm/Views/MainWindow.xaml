@@ -1,0 +1,81 @@
+﻿<Window x:Class="BookWorm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookWorm.Views"
+        xmlns:vm="clr-namespace:BookWorm.ViewModels"
+        mc:Ignorable="d"
+        Title="Bookworm" Height="1000" Width="1200"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="False"
+        Background="Black">
+     <Window.Resources>
+            <Storyboard x:Key="WormWiggleStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+                <DoubleAnimation Storyboard.TargetName="WormRotation"
+                             Storyboard.TargetProperty="Angle"
+                             From="-5" To="5"
+                             Duration="0:0:.5" />
+            </Storyboard>
+        </Window.Resources>
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="20" VerticalAlignment="Top">
+            <TextBlock Text="Your Word:" FontSize="20" Foreground="White" Margin="0,0,0,10"/>
+            <TextBox x:Name="CurrentWordDisplay"
+                               Text="WORD TO SUBMIT" 
+                               FontSize="24"
+                               IsReadOnly="True"
+                               Margin="10"
+                               FontWeight="Bold"
+                               FontFamily="Georgia"
+                               TextAlignment="Center"
+                               Background="Black"
+                               Foreground="Gold"
+                               BorderBrush="Goldenrod"
+                               BorderThickness="2"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20,20,20,20">
+                <Button Style ="{StaticResource LeatherBookButtonStyle}" Content="SUBMIT" Click="SubmitWord_Click"/>
+                <Button Style ="{StaticResource LeatherBookButtonStyle}" Content="CLEAR" />
+            </StackPanel>
+
+            <TextBlock Text="Score:" FontSize="20" Foreground="White"/>
+            <TextBlock x:Name="ScoreDisplay"
+                               Text="0"
+                               FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               Margin="0,10,0,30"/>
+            <Grid Grid.Column="0" Margin="20">
+                <Image Source="/Images/Bookshelf.png"
+                       Stretch="Fill"
+                       Opacity=".8"
+                       Panel.ZIndex="0"/>
+
+                    <Image x:Name="WormImage"
+                       Source="/Images/Bookworm.png"
+                       Width="180"
+                       RenderTransformOrigin="0.5,0.5"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20">
+                        <Image.RenderTransform>
+                            <RotateTransform x:Name="WormRotation" Angle="0"/>
+                        </Image.RenderTransform>
+                    </Image>
+                </Grid>
+        </StackPanel>
+         <Canvas  x:Name="TileCanvas"
+                Grid.Column="1"
+                Margin="20"
+                Background="Transparent"
+                ClipToBounds="True"/>
+        
+    </Grid>
+    
+</Window>

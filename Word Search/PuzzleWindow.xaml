@@ -1,0 +1,108 @@
+﻿<Window x:Class="WordSearchEngine.PuzzleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordSearchEngine"
+        mc:Ignorable="d"
+        Title="PuzzleWindow" Height="1000" Width="1000"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="#2E2E2E"
+>
+    <Grid Margin="20">
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <!-- Puzzle Grid -->
+                <ColumnDefinition Width="1*"/>
+                <!-- Word List -->
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="PuzzleTItle"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="{Binding TopicTitle}"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+       
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <!-- Puzzle Grid -->
+                <ColumnDefinition Width="1*"/>
+                <!-- Word List -->
+            </Grid.ColumnDefinitions>
+            <!-- Puzzle Letter Grid -->
+            <Border BorderBrush="White" BorderThickness="2" Margin="5">
+                <Grid Grid.Column="0" ClipToBounds="True">
+                    <Canvas x:Name="HighlightCanvas" IsHitTestVisible="False"/>
+                    <Grid>
+                        <UniformGrid x:Name="PuzzleGrid"
+                                     Columns="1" Rows="1" Margin="10"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            <!-- Word List -->
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="20,0,0,0">
+                <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                    <TextBlock Text="Words to Find:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+                    <ItemsControl x:Name="WordListDisplay">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <ContentControl.Template>
+                                        <ControlTemplate TargetType="ContentControl">
+                                            <TextBlock x:Name="WordText"
+                                               Text="{Binding Text}"
+                                               FontSize="16"
+                                               Margin="5"
+                                               TextWrapping="Wrap"
+                                               TextTrimming="CharacterEllipsis"
+                                               
+                                               TextDecorations="{x:Null}">
+                                                <TextBlock.Foreground>
+                                                    <SolidColorBrush x:Name="WordBrush" Color="White" />
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                            <ControlTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Found}" Value="True">
+                                                    <Setter TargetName="WordText" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="WordBrush"
+                                                        Storyboard.TargetProperty="Color"
+                                                        To="Gray"
+                                                        Duration="0:0:0.8" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                </DataTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ContentControl.Template>
+                                </ContentControl>
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
